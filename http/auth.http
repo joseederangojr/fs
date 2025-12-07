@@ -1,0 +1,35 @@
+### 
+
+@BASE_URL = {{APP_URL}}/api
+
+
+### SIGN_UP
+
+POST {{BASE_URL}}/auth/signup HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "joseederangojr@gmail.com",
+  "password": "p4$Sword"
+}
+
+
+### SIGN_IN
+
+POST {{BASE_URL}}/auth/signin HTTP/2
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{SIGN_UP.request.body.$.email}}",
+  "password": "{{SIGN_UP.request.body.$.password}}"
+}
+
+
+### ME
+
+GET {{BASE_URL}}/auth/me HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{SIGN_IN.response.body.$.accessToken}}

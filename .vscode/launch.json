@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "internalConsoleOptions": "neverOpen",
+      "request": "launch",
+      "name": "Debug File",
+      "program": "${file}",
+      "cwd": "${workspaceFolder}",
+      "stopOnEntry": false,
+      "watchMode": false,
+      "runtimeExecutable": "bun"
+    },
+    {
+      "type": "node",
+      "internalConsoleOptions": "neverOpen",
+      "request": "launch",
+      "name": "Run File",
+      "program": "${file}",
+      "cwd": "${workspaceFolder}",
+      "noDebug": true,
+      "watchMode": false,
+      "runtimeExecutable": "bun"
+    },
+    {
+      "type": "pwa-chrome",
+      "internalConsoleOptions": "neverOpen",
+      "request": "attach",
+      "name": "Attach Bun",
+      "url": "ws://localhost:6499/bun",
+      "stopOnEntry": false,
+      "runtimeExecutable": "bun"
+    }
+  ]
+}
