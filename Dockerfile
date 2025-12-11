@@ -1,5 +1,6 @@
-# Build stage
 FROM oven/bun:1.3.3
+
+ARG PORT=3000
 
 WORKDIR /work
 
@@ -9,7 +10,8 @@ RUN bun install --frozen-lockfile
 
 COPY . .
 
-RUN bun build --compile --target=node --outfile  ./dist/app src/index.ts
+RUN bun build --compile --bytecode --minify --outfile ./dist/app src/index.ts
 
+EXPOSE ${PORT}
 
 CMD ["/work/dist/app"]

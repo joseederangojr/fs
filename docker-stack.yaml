@@ -71,7 +71,7 @@ services:
 
   migrate:
     image: ghcr.io/joseederangojr/fs:${GIT_COMMIT_HASH}
-    command: ["bun", "run", "migrate:up"]
+    command: bun run migrate:up
     environment:
       DATABASE_URL_FILE: /run/secrets/database_url
     networks:
@@ -80,6 +80,7 @@ services:
       - postgres
     secrets:
       - database_url
+    restart: no
 
 networks:
   public:
