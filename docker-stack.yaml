@@ -80,7 +80,9 @@ services:
       - postgres
     secrets:
       - database_url
-    restart: no
+    deploy:
+      restart_policy:
+        condition: none
 
 networks:
   public:
