@@ -1,9 +1,10 @@
 import { z } from "zod";
 import { hourToSeconds } from "./date";
+import { readFileSync } from "node:fs";
 
 export const ConfigSchema = z.object({
-  APP_URL: z.url().default("http://localhost:5000"),
-  APP_PORT: z.coerce.number().default(5000),
+  APP_URL: z.url().default("http://localhost:3000"),
+  PORT: z.coerce.number().default(3000),
   APP_ENV: z.enum(["development", "production"]).default("development"),
   BODY_LIMIT: z.coerce.number().transform((x: number) => Number(x) * 1024),
   DATABASE_URL: z.string().min(1),
@@ -36,7 +37,28 @@ export const ConfigSchema = z.object({
 
 export type ConfigData = z.infer<typeof ConfigSchema>;
 
-export default ConfigSchema.parse(process.env);
+const readEnv = (key: keyof ConfigData): string => {
+  try {
+    if (process.env[`${key}_FILE`]) {
+      return readFileSync(process.env[`${key}_FILE`]!, "utf8") as string;
+    }
+  } catch (cause) {
+    console.warn(`Failed to read from file ${key}_FILE`);
+  }
+  return process.env[key] as string;
+};
+
+const getConfig = (): ConfigData => {
+  return Object.keys(ConfigSchema.shape).reduce(
+    (acc, cur) => ({
+      ...acc,
+      [cur]: readEnv(cur as keyof ConfigData),
+    }),
+    {},
+  ) as ConfigData;
+};
+
+export default ConfigSchema.parse(getConfig());
 
 declare global {
   namespace NodeJS {

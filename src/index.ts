@@ -3,5 +3,5 @@ import config from "./utils/config";
 
 Bun.serve({
   fetch: app.fetch,
-  port: config.APP_PORT,
+  port: config.PORT,
 });

@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres:/var/lib/postgresql
+    ports:
+      - 5432:5432
+
+  app:
+    build: .
+    environment:
+      PORT: 3000
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres:
+    driver: local
