@@ -61,13 +61,11 @@ services:
       - jwt_secret
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.app.rule=Host(`fs.joseederangojr.site`) && PathPrefix(`/api`)"
-      - "traefik.http.routers.app.entrypoints=websecure"
-      - "traefik.http.routers.app.tls=true"
-      - "traefik.http.services.app.loadbalancer.server.port=3000"
-      - "traefik.http.routers.app.service=app"
-      - "traefik.http.middlewares.strip.stripprefix.prefixes=/api"
-      - "traefik.http.routers.app.middlewares=strip"
+      - "traefik.http.routers.fs-api.rule=Host(`fs.joseederangojr.site`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.fs-api.entrypoints=websecure"
+      - "traefik.http.routers.fs-api.tls=true"
+      - "traefik.http.services.fs-api.loadbalancer.server.port=3000"
+      - "traefik.http.routers.fs-api.service=fs-api"
     depends_on:
       - postgres
       - migrate
