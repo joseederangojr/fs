@@ -56,16 +56,16 @@ services:
           memory: 256M
         reservations:
           memory: 128M
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.api.rule=Host(`fs.joseederangojr.site`) && PathPrefix(`/api`)"
+        - "traefik.http.routers.api.entrypoints=websecure"
+        - "traefik.http.routers.api.tls=true"
+        - "traefik.http.services.api.loadbalancer.server.port=3000"
+        - "traefik.http.routers.api.service=api"
     secrets:
       - database_url
       - jwt_secret
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.fs-api.rule=Host(`fs.joseederangojr.site`) && PathPrefix(`/api`)"
-      - "traefik.http.routers.fs-api.entrypoints=websecure"
-      - "traefik.http.routers.fs-api.tls=true"
-      - "traefik.http.services.fs-api.loadbalancer.server.port=3000"
-      - "traefik.http.routers.fs-api.service=fs-api"
     depends_on:
       - postgres
       - migrate
