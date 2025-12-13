@@ -66,6 +66,8 @@ services:
       - "traefik.http.routers.app.tls=true"
       - "traefik.http.services.app.loadbalancer.server.port=3000"
       - "traefik.http.routers.app.service=app"
+      - "traefik.http.middlewares.strip.stripprefix.prefixes=/api"
+      - "traefik.http.routers.app.middlewares=strip"
     depends_on:
       - postgres
       - migrate

@@ -25,7 +25,7 @@
   "scripts": {
     "migrate:up": "kysely migrate latest",
     "migrate:down": "kysely migrate rollback",
-    "postmigrate:up": "kysely-codegen --dialect=postgres --out-file=./src/db/db.types.ts --camel-case --env-file=.env",
+    "postmigrate:up": "kysely-codegen --dialect=postgres --out-file=./src/db/db.types.ts --camel-case",
     "dev": "bun run --hot src/index.ts"
   }
 }
