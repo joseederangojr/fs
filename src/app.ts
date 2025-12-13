@@ -6,7 +6,7 @@ import { cors } from "hono/cors";
 import { requestId } from "hono/request-id";
 import { logger } from "hono/logger";
 import { HTTPException } from "hono/http-exception";
-const app = new Hono().basePath("api");
+const app = new Hono().basePath("/api");
 
 app.use(
   cors({
